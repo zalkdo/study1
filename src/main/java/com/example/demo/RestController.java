@@ -9,18 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RestController {
 
 	@GetMapping("/")
-	public String hello(){
-		String serverInfo = "";
-		InetAddress local;
-		try {
-			local = InetAddress.getLocalHost();
-			serverInfo = local.getHostName() + " :: " + local.getHostAddress();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return serverInfo;
+	public String hello() throws UnknownHostException {
+		InetAddress local = InetAddress.getLoopbackAddress();
+		InetAddress host  = InetAddress.getLocalHost();
+
+		return host.getHostName() + " :: " + host.getHostAddress() + " :: " + local.toString();
 	}
 
 }
